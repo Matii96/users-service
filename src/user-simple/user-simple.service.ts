@@ -4,8 +4,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Sequelize, Op, ValidationErrorItem } from 'sequelize';
 import { sign } from 'jsonwebtoken';
 import { Request } from 'express';
-import { LoginHistory } from './models/user-login-history.model';
-import { User } from './models/user.model';
+import { LoginHistorySimple } from './models/user-login-history.model';
+import { UserSimple } from './models/user.model';
 import { UserLoginHistoryDto } from './dto/login-history.dto';
 import { ModifyUserDto } from './dto/modify.dto';
 import { GetUserDto } from './dto/get.dto';
@@ -18,11 +18,11 @@ export class UserSimpleService {
   public constructor(
     private config: ConfigService,
     private sequelize: Sequelize,
-    @InjectModel(User) private userModel: typeof User,
-    @InjectModel(LoginHistory) private loginHistoryModel: typeof LoginHistory
+    @InjectModel(UserSimple) private userModel: typeof UserSimple,
+    @InjectModel(LoginHistorySimple) private loginHistoryModel: typeof LoginHistorySimple
   ) {}
 
-  public async GetUser(user: User): Promise<GetUserDto> {
+  public async GetUser(user: UserSimple): Promise<GetUserDto> {
     return {
       id: user.id,
       name: user.name,
@@ -49,7 +49,7 @@ export class UserSimpleService {
   }
 
   public async Login(req: Request, data: LoginInputDto): Promise<LoginDto> {
-    const user: User = await this.userModel.findOne({
+    const user = await this.userModel.findOne({
       attributes: ['id', 'name', 'fullName', 'email', 'hash', 'password', 'lang'],
       where: {
         [Op.or]: [{ name: data.nameOrEmail }, { email: data.nameOrEmail }],
@@ -62,7 +62,7 @@ export class UserSimpleService {
       throw new UnauthorizedException();
     }
 
-    await LoginHistory.create({
+    await LoginHistorySimple.create({
       address: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       browser: req.headers['user-agent'],
       userId: user.id
@@ -84,7 +84,7 @@ export class UserSimpleService {
   }
 
   public async CreateUser(data: ModifyUserDto): Promise<GetUserDto> {
-    let user: User;
+    let user: UserSimple;
     try {
       user = await this.userModel.create(data, { raw: true });
     } catch (err) {

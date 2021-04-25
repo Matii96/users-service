@@ -3,7 +3,7 @@ import { hashSync, compareSync } from 'bcrypt';
 import config from 'config';
 
 @Table
-export class User extends Model<User> {
+export class UserSimple extends Model<UserSimple> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
