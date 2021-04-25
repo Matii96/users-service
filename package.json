@@ -1,0 +1,81 @@
+{
+  "name": "user-service-nest",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Matii96",
+  "private": true,
+  "license": "MIT",
+  "main": "dist/main.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "dependencies": {
+    "@nestjs/common": "^7.0.0",
+    "@nestjs/config": "^0.5.0",
+    "@nestjs/core": "^7.0.0",
+    "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/sequelize": "^0.1.1",
+    "@nestjs/swagger": "^4.5.12",
+    "bcrypt": "^5.0.1",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.12.2",
+    "jsonwebtoken": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.5.4",
+    "sequelize": "^5.21.3",
+    "sequelize-typescript": "^1.1.0",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^7.0.0",
+    "@nestjs/schematics": "^7.0.0",
+    "@nestjs/testing": "^7.0.0",
+    "@types/bcrypt": "^3.0.1",
+    "@types/express": "^4.17.3",
+    "@types/jest": "25.2.3",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/node": "^13.9.1",
+    "@types/sequelize": "^4.28.9",
+    "@types/supertest": "^2.0.8",
+    "jest": "26.0.1",
+    "prettier": "^1.19.1",
+    "sqlite3": "^5.0.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "26.1.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.2",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.7.4"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts",
+      "node"
+    ],
+    "moduleNameMapper": {
+      "src/(.*)$": "<rootDir>/src/$1"
+    },
+    "rootDir": "./",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
