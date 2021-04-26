@@ -1,4 +1,4 @@
-import { Model, DataType, Column, Table } from 'sequelize-typescript';
+import { Model, DataType, Column, Table, BeforeCreate, BeforeUpdate } from 'sequelize-typescript';
 import { hashSync, compareSync } from 'bcrypt';
 import config from 'config';
 
@@ -17,13 +17,7 @@ export class UserEntity extends Model<UserEntity> {
   @Column({ type: DataType.STRING(4096) })
   public description: string;
 
-  @Column({
-    type: DataType.STRING,
-    set(val: string): void {
-      // @ts-ignore
-      this.setDataValue('password', hashSync(val.trim(), config.authentication.userPasswordSalt));
-    }
-  })
+  @Column({ type: DataType.STRING })
   public password: string;
 
   @Column({
@@ -44,5 +38,13 @@ export class UserEntity extends Model<UserEntity> {
 
   public ComparePassword(password: string): boolean {
     return compareSync(password, this.password);
+  }
+
+  @BeforeCreate
+  @BeforeUpdate
+  public static hashPassword(user: UserEntity): void {
+    if (user.password) {
+      user.password = hashSync(user.password.trim(), config.authentication.userPasswordSalt);
+    }
   }
 }

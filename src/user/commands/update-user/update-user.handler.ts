@@ -25,7 +25,7 @@ export class UpdateUserHandler implements IQueryHandler<UpdateUserCommand> {
 
       const userEntity = await this.userModel.findByPk(command.id, { transaction: t, raw: true });
       const user = this.publisher.mergeObjectContext(new User(userEntity));
-      user.register();
+      user.updateData();
       user.commit();
 
       return userEntity;

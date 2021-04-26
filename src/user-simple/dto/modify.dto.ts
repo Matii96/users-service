@@ -16,6 +16,13 @@ export class ModifyUserDto {
   @MaxLength(100)
   fullName: string;
 
+  @ApiProperty({ minLength: 2, maxLength: 100 })
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(2)
+  @MaxLength(100)
+  password: string;
+
   @ApiProperty({ required: false, maxLength: 256 })
   @IsString()
   @IsOptional()

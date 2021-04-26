@@ -15,6 +15,11 @@ exports.default = {
   storageLimits: {
     userLoginHistory: 2
   },
+  authentication: {
+    userPasswordSalt: 8,
+    expiresIn: 604800,
+    jwtSecret: 'what-are-you-doing'
+  },
 
   development: {
     dialect: 'sqlite',

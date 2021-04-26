@@ -49,7 +49,7 @@ export class UserSimpleService {
 
   public async Login(req: Request, data: LoginInputDto): Promise<LoginDto> {
     const user = await this.userModel.findOne({
-      attributes: ['id', 'name', 'fullName', 'email', 'hash', 'password', 'lang'],
+      attributes: ['id', 'name', 'fullName', 'email', 'password', 'lang'],
       where: {
         [Op.or]: [{ name: data.nameOrEmail }, { email: data.nameOrEmail }],
         password: { [Op.ne]: null },
