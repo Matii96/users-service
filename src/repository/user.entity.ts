@@ -3,14 +3,11 @@ import { hashSync, compareSync } from 'bcrypt';
 import config from 'config';
 
 @Table
-export class UserSimple extends Model<UserSimple> {
+export class UserEntity extends Model<UserEntity> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: {
-      name: 'name',
-      msg: 'collidingName'
-    }
+    unique: { name: 'name', msg: 'collidingName' }
   })
   public name: string;
 
@@ -19,9 +16,6 @@ export class UserSimple extends Model<UserSimple> {
 
   @Column({ type: DataType.STRING(4096) })
   public description: string;
-
-  @Column({ type: DataType.STRING, allowNull: false, unique: true })
-  public hash: string;
 
   @Column({
     type: DataType.STRING,
@@ -35,10 +29,7 @@ export class UserSimple extends Model<UserSimple> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: {
-      name: 'email',
-      msg: 'collidingEmail'
-    }
+    unique: { name: 'email', msg: 'collidingEmail' }
   })
   public email: string;
 

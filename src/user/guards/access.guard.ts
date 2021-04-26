@@ -1,10 +1,10 @@
 import { CanActivate, ExecutionContext, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { IRequestUser } from '../interfaces/request.interface';
 import { UserEntity } from 'src/repository/user.entity';
-import { IRequestUserSimple } from '../interfaces/request.interface';
 
 @Injectable()
-export class AccessUserSimple implements CanActivate {
+export class AccessUser implements CanActivate {
   public constructor(@InjectModel(UserEntity) private userModel: typeof UserEntity) {}
 
   private CheckAccess(id: string): Promise<UserEntity> {
@@ -22,7 +22,7 @@ export class AccessUserSimple implements CanActivate {
   }
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
-    const req: IRequestUserSimple = context.switchToHttp().getRequest();
+    const req: IRequestUser = context.switchToHttp().getRequest();
     if (!req.params.id) {
       return true;
     }

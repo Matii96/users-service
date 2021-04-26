@@ -11,7 +11,7 @@ async function bootstrap() {
     app,
     new DocumentBuilder()
       .setTitle('Users api')
-      .setDescription('Users api microservice')
+      .setDescription('Users microservice')
       .setVersion('1.0')
       .build()
   );

@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeConfigFactory } from './database/sequelize-config.factory';
 import { UserSimpleModule } from './user-simple/user-simple.module';
 import { UserModule } from './user/user.module';
+import { DatabaseModule } from './database/database.module';
 import config from 'config';
 
 @Module({
@@ -18,7 +19,8 @@ import config from 'config';
       useFactory: SequelizeConfigFactory
     }),
     UserSimpleModule,
-    UserModule
+    UserModule,
+    DatabaseModule
   ]
 })
 export class AppModule {}

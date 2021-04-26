@@ -5,12 +5,12 @@ import { UserSimpleService } from './user-simple.service';
 import { GetUserDto } from './dto/get.dto';
 import { ModifyUserDto } from './dto/modify.dto';
 import { UserLoginHistoryDto } from './dto/login-history.dto';
-import { AccessUser } from './guards/access.guard';
-import { IRequestUser } from './interfaces/request.interface';
+import { AccessUserSimple } from './guards/access.guard';
+import { IRequestUserSimple } from './interfaces/request.interface';
 import { LoginInputDto } from './dto/login-input.dto';
 
 @ApiTags('User simple')
-@UseGuards(AccessUser)
+@UseGuards(AccessUserSimple)
 @Controller('user-simple')
 export class UserSimpleController {
   public constructor(private userSimpleService: UserSimpleService) {}
@@ -24,14 +24,14 @@ export class UserSimpleController {
   @Get(':id')
   @ApiParam({ name: 'id' })
   @ApiOkResponse({ type: GetUserDto })
-  public GetUser(@Req() req: IRequestUser) {
+  public GetUser(@Req() req: IRequestUserSimple) {
     return this.userSimpleService.GetUser(req.user);
   }
 
   @Get(':id/login-history')
   @ApiParam({ name: 'id' })
   @ApiOkResponse({ type: [UserLoginHistoryDto] })
-  public GetLoginHistory(@Req() req: IRequestUser) {
+  public GetLoginHistory(@Req() req: IRequestUserSimple) {
     return this.userSimpleService.GetLoginHistory(req.user.id);
   }
 
@@ -53,14 +53,13 @@ export class UserSimpleController {
   @ApiParam({ name: 'id' })
   @ApiBody({ type: ModifyUserDto })
   @ApiOkResponse({ type: GetUserDto })
-  public UpdateUser(@Req() req: IRequestUser, @Body() data: ModifyUserDto) {
+  public UpdateUser(@Req() req: IRequestUserSimple, @Body() data: ModifyUserDto) {
     return this.userSimpleService.UpdateUser(req.user.id, data);
   }
 
   @Delete(':id')
-  @ApiParam({ name: 'id', description: 'id or hash' })
-  @ApiOkResponse({ type: Number, description: 'Removed user id' })
-  public RemoveUser(@Req() req: IRequestUser) {
+  @ApiParam({ name: 'id' })
+  public RemoveUser(@Req() req: IRequestUserSimple) {
     return this.userSimpleService.RemoveUser(req.user.id);
   }
 }
