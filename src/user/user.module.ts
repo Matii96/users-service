@@ -8,12 +8,10 @@ import { LoginHistoryEntity } from 'src/repository/user-login-history.model';
 import { UserEntity } from 'src/repository/user.entity';
 import { UserQueryHandlers } from './queries';
 import { UserCommandHandlers } from './commands';
-import { UserEventHandlers } from './events';
-import { UserSagas } from './sagas/user.sagas';
 
 @Module({
   imports: [CqrsModule, SequelizeModule.forFeature([UserEntity, LoginHistoryEntity]), DatabaseModule],
   controllers: [UserQueryController, UserCommandController],
-  providers: [...UserQueryHandlers, ...UserCommandHandlers, ...UserEventHandlers, UserSagas]
+  providers: [...UserQueryHandlers, ...UserCommandHandlers]
 })
 export class UserModule {}
