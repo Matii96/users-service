@@ -36,7 +36,9 @@ export class UserQueryController {
   @ApiParam({ name: 'id' })
   @ApiOkResponse({ type: [UserLoginHistoryDto] })
   public GetLoginHistory(@Req() req: IRequestUser) {
-    return this.queryBus.execute<GetLoginHistoryQuery, UserLoginHistoryDto[]>(new GetLoginHistoryQuery(req.user.id));
+    return this.queryBus.execute<GetLoginHistoryQuery, UserLoginHistoryDto[]>(
+      new GetLoginHistoryQuery(req.user.data.id)
+    );
   }
 
   @Post('login')

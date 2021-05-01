@@ -1,6 +1,6 @@
 import { IQuery } from '@nestjs/cqrs';
-import { UserEntity } from 'src/repository/user.entity';
+import { User } from 'src/user/models/user.model';
 
 export class GetUserQuery implements IQuery {
-  public constructor(public user: UserEntity) {}
+  public constructor(public user: User) {}
 }

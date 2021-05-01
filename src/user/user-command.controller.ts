@@ -27,12 +27,12 @@ export class UserCommandController {
   @ApiBody({ type: ModifyUserDto })
   @ApiOkResponse({ type: GetUserDto })
   public UpdateUser(@Req() req: IRequestUser, @Body() data: ModifyUserDto): Promise<GetUserDto> {
-    return this.commandBus.execute(new UpdateUserCommand(req.user.id, data));
+    return this.commandBus.execute(new UpdateUserCommand(req.user.data.id, data));
   }
 
   @Delete(':id')
   @ApiParam({ name: 'id' })
   public RemoveUser(@Req() req: IRequestUser) {
-    return this.commandBus.execute(new RemoveUserCommand(req.user.id));
+    return this.commandBus.execute(new RemoveUserCommand(req.user.data.id));
   }
 }
