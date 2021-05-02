@@ -26,7 +26,7 @@
 
 ## Description
 
-Example API [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Example [Nest](https://github.com/nestjs/nest) project for [CQRS Article](https://medium.com/@matii96/cqrs-vs-classical-n-layer-application-1ecb74188d14).
 
 ## Installation
 
