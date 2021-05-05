@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
-import { GetUserDto } from 'src/user-simple/dto/get.dto';
-import { ModifyUserDto } from 'src/user-simple/dto/modify.dto';
+import { GetUserDto } from './dto/get.dto';
+import { ModifyUserDto } from './dto/modify.dto';
 import { CreateUserCommand } from './commands/create-user/create-user.command';
 import { RemoveUserCommand } from './commands/remove-user/remove-user.command';
 import { UpdateUserCommand } from './commands/update-user/update-user.command';

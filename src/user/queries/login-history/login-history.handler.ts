@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectModel } from '@nestjs/sequelize';
 import { GetLoginHistoryQuery } from './login-history.query';
-import { UserLoginHistoryDto } from 'src/user-simple/dto/login-history.dto';
+import { UserLoginHistoryDto } from 'src/user/dto/login-history.dto';
 import { LoginHistoryEntity } from 'src/repository/user-login-history.model';
 
 @QueryHandler(GetLoginHistoryQuery)

@@ -8,7 +8,7 @@ import { sign } from 'jsonwebtoken';
 import { UserEntity } from 'src/repository/user.entity';
 import { LoginQuery } from './login.query';
 import { LoginUserDto } from 'src/user/dto/login-user.dto';
-import { LoginDto } from 'src/user-simple/dto/login.dto';
+import { LoginDto } from 'src/user/dto/login.dto';
 import { LoginHistoryEntity } from 'src/repository/user-login-history.model';
 
 @QueryHandler(LoginQuery)
