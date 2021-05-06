@@ -1,8 +1,8 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import { UserEntity } from 'src/repository/user.entity';
+import { User } from 'src/entities/user.entity';
 
-export class User extends AggregateRoot {
-  public constructor(public readonly data: UserEntity) {
+export class UserAggregate extends AggregateRoot {
+  public constructor(public readonly data: User) {
     super();
   }
 

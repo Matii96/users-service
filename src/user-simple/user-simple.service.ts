@@ -10,19 +10,19 @@ import { GetUserDto } from './dto/get.dto';
 import { LoginInputDto } from './dto/login-input.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { LoginDto } from './dto/login.dto';
-import { UserEntity } from 'src/repository/user.entity';
-import { LoginHistoryEntity } from 'src/repository/user-login-history.model';
+import { User } from 'src/entities/user.entity';
+import { LoginHistory } from 'src/entities/user-login-history.model';
 
 @Injectable()
 export class UserSimpleService {
   public constructor(
     private config: ConfigService,
     private sequelize: Sequelize,
-    @InjectModel(UserEntity) private userModel: typeof UserEntity,
-    @InjectModel(LoginHistoryEntity) private loginHistoryModel: typeof LoginHistoryEntity
+    @InjectModel(User) private userModel: typeof User,
+    @InjectModel(LoginHistory) private loginHistoryModel: typeof LoginHistory
   ) {}
 
-  public async GetUser(user: UserEntity): Promise<GetUserDto> {
+  public async GetUser(user: User): Promise<GetUserDto> {
     return {
       id: user.id,
       name: user.name,
@@ -61,7 +61,7 @@ export class UserSimpleService {
       throw new UnauthorizedException();
     }
 
-    await LoginHistoryEntity.create({
+    await this.loginHistoryModel.create({
       address: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       browser: req.headers['user-agent'],
       userId: user.id
@@ -82,7 +82,7 @@ export class UserSimpleService {
   }
 
   public async CreateUser(data: ModifyUserDto): Promise<GetUserDto> {
-    let user: UserEntity;
+    let user: User;
     try {
       user = await this.userModel.create(data, { raw: true });
     } catch (err) {

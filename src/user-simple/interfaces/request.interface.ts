@@ -1,6 +1,6 @@
 import { Request } from 'express';
-import { UserEntity } from 'src/repository/user.entity';
+import { User } from 'src/entities/user.entity';
 
 export interface IRequestUserSimple extends Request {
-  user: UserEntity;
+  user: User;
 }

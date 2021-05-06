@@ -3,7 +3,7 @@ import { hashSync, compareSync } from 'bcrypt';
 import config from 'config';
 
 @Table
-export class UserEntity extends Model<UserEntity> {
+export class User extends Model<User> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
@@ -42,7 +42,7 @@ export class UserEntity extends Model<UserEntity> {
 
   @BeforeCreate
   @BeforeUpdate
-  public static hashPassword(user: UserEntity): void {
+  public static hashPassword(user: User): void {
     if (user.password) {
       user.password = hashSync(user.password.trim(), config.authentication.userPasswordSalt);
     }

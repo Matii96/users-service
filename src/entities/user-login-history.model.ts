@@ -1,22 +1,22 @@
 import { Op } from 'sequelize';
 import { Model, DataType, Column, Table, ForeignKey, BelongsTo, BeforeBulkCreate } from 'sequelize-typescript';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 import config from 'config';
 
 @Table
-export class LoginHistoryEntity extends Model<LoginHistoryEntity> {
+export class LoginHistory extends Model<LoginHistory> {
   @Column({ type: DataType.STRING })
   public address: string;
 
   @Column({ type: DataType.STRING })
   public browser: string;
 
-  @ForeignKey((): typeof Model => UserEntity)
+  @ForeignKey((): typeof Model => User)
   @Column
   public userId: number;
 
-  @BelongsTo((): typeof Model => UserEntity, { onDelete: 'CASCADE' })
-  public user: UserEntity;
+  @BelongsTo((): typeof Model => User, { onDelete: 'CASCADE' })
+  public user: User;
 
   @BeforeBulkCreate
   public static async RemoveOldest() {
@@ -25,6 +25,6 @@ export class LoginHistoryEntity extends Model<LoginHistoryEntity> {
     }
     const limitDate: Date = new Date();
     limitDate.setMonth(limitDate.getMonth() - config.storageLimits.userLoginHistory);
-    await LoginHistoryEntity.destroy({ where: { createdAt: { [Op.lt]: limitDate } } });
+    await LoginHistory.destroy({ where: { createdAt: { [Op.lt]: limitDate } } });
   }
 }

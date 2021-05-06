@@ -5,18 +5,18 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
 import { Request } from 'express';
 import { sign } from 'jsonwebtoken';
-import { UserEntity } from 'src/repository/user.entity';
+import { User } from 'src/entities/user.entity';
 import { LoginQuery } from './login.query';
 import { LoginUserDto } from 'src/user/dto/login-user.dto';
 import { LoginDto } from 'src/user/dto/login.dto';
-import { LoginHistoryEntity } from 'src/repository/user-login-history.model';
+import { LoginHistory } from 'src/entities/user-login-history.model';
 
 @QueryHandler(LoginQuery)
 export class LoginHandler implements IQueryHandler<LoginQuery> {
   public constructor(
     private config: ConfigService,
-    @InjectModel(LoginHistoryEntity) private loginHistoryEntity: typeof LoginHistoryEntity,
-    @InjectModel(UserEntity) private userModel: typeof UserEntity
+    @InjectModel(LoginHistory) private loginHistoryEntity: typeof LoginHistory,
+    @InjectModel(User) private userModel: typeof User
   ) {}
 
   public async execute(query: LoginQuery): Promise<LoginDto> {
